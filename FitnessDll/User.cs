@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FitnessDll
 {/// <summary>
-/// Пользователь.
+/// Пользователь....
 /// </summary>
     class User
     #region Свойства.

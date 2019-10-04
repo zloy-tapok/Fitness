@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessDll
+namespace FitnessDll.Model
 {   /// <summary>
 /// Пол юзера
 /// </summary>
+   [Serializable]
     class Gender
     {   /// <summary>
     /// Название

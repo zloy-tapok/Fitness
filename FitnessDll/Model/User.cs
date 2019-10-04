@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessDll
+namespace FitnessDll.Model
 {/// <summary>
 /// Пользователь.
 /// </summary>
+    [Serializable]
     class User
     #region Свойства.
     {   /// <summary>

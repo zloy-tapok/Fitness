@@ -16,20 +16,11 @@ namespace FitnessCMD
             Console.WriteLine("Введите имя пользователя");
             string tempName = Console.ReadLine();
 
-            Console.WriteLine("Введите пол");
-            string tempGender = Console.ReadLine();
+   
 
-            Console.WriteLine("Введите дату рождения");
-            DateTime tempBirthDay = DateTime.Parse(Console.ReadLine());
-
-            Console.WriteLine("Введите свой вес");
-            double tempWeight = double.Parse(Console.ReadLine());
-
-            Console.WriteLine("Введите свой рост");
-            double tempHeight = double.Parse(Console.ReadLine());
-
-            UserController userCon = new UserController(tempName, tempGender, tempBirthDay, tempWeight, tempHeight);
-            userCon.Save();
+            UserController userCon = new UserController(tempName);
+            Console.WriteLine(userCon.CurrentUserPole);
+            Console.ReadLine();
         }
     }
 }

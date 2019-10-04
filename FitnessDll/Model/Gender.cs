@@ -9,7 +9,7 @@ namespace FitnessDll.Model
 /// Пол юзера
 /// </summary>
    [Serializable]
-    class Gender
+   public class Gender
     {   /// <summary>
     /// Название
     /// </summary>

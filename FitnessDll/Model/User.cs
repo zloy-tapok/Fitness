@@ -9,21 +9,21 @@ namespace FitnessDll.Model
 /// Пользователь.
 /// </summary>
     [Serializable]
-    class User
+    public class User
     #region Свойства.
     {   /// <summary>
         /// Имя.
         /// 
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
         /// <summary>
         /// Пол.
         /// </summary>
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }
         /// <summary>
         /// День Рождения.
         /// </summary>
-        public DateTime BirthDay { get; }
+        public DateTime BirthDay { get; set; }
         /// <summary>
         /// Вес.
         /// </summary>
@@ -32,6 +32,10 @@ namespace FitnessDll.Model
         /// Рост.
         /// </summary>
         public double Height { get; set; }
+        public int Age
+        {
+            get { return DateTime.Now.Year - BirthDay.Year; }
+        }
         #endregion
         /// <summary>
         /// Создать нового пользователя.
@@ -60,11 +64,11 @@ namespace FitnessDll.Model
             {
                 throw new ArgumentException("Невозможно родиться тогда", nameof(birthday));
             }
-            if (weight <= 30)
+            if (weight <= 0)
             {
                 throw new ArgumentException("Вес слишком мал", nameof(weight));
             }
-            if(height <= 50)
+            if(height <= 0)
             {
                 throw new ArgumentException("Рост слишком мал блэт", nameof(height));
             }
@@ -75,9 +79,20 @@ namespace FitnessDll.Model
             Weight = weight;
             Height = height;
         }
+        public User(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Пустое имя блэт", nameof(name));
+            }
+            else
+            {
+                Name = name;
+            }
+        }
         public override string ToString()
         {
-            return Name;
+            return Name + Age;
         }
     }
     

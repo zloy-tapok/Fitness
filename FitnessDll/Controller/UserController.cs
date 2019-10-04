@@ -16,28 +16,55 @@ namespace FitnessDll.Controller
         /// <summary>
         /// Пользователь приложения.
         /// </summary>
-        User UserPole { get; }
+        public List<User> UsersPole { get; }
+        public User CurrentUserPole { get; }
+        public bool IsNewUser { get; } = false;
+
         /// <summary>
         /// Создание нового контроллера пользователя
         /// </summary>
         /// <param name="user"></param>
-        public UserController(string userName, string genderName, DateTime birthdayName, double weightName, double heightName)
+        public UserController(string userName)
         {
-            Gender gender = new Gender(genderName);
-            UserPole = new User(userName, gender, birthdayName, weightName, heightName);
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                throw new ArgumentNullException("Пустое имя для списка", nameof(userName));
+            }
+            UsersPole = LoadUserData();
+            CurrentUserPole = UsersPole.SingleOrDefault(u => u.Name == userName);
+            if(CurrentUserPole == null)
+            {
+                CurrentUserPole = new User(userName);
+                UsersPole.Add(CurrentUserPole);
+                IsNewUser = true;
+                Save();
+            }
+
+        
            
         }
-        public UserController()
+        private List<User> LoadUserData()
         {
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream fs = new FileStream("users.dat", FileMode.Open))
             {
-
-                if (formatter.Deserialize(fs) is User user)
+                if (formatter.Deserialize(fs) is List<User> users)
                 {
-                    UserPole = user;
+                    return users;
+                }
+                else
+                {
+                    return new List<User>();
                 }
             }
+        }
+        public void SetNewUserData(string genderName, DateTime birthDayName, double weightName = 1, double heigtName = 1)
+        {
+            CurrentUserPole.Gender = new Gender(genderName);
+            CurrentUserPole.BirthDay = birthDayName;
+            CurrentUserPole.Weight = weightName;
+            CurrentUserPole.Height = heigtName;
+            Save();
         }
         /// <summary>
         /// Сохраниеть юзера.
@@ -47,24 +74,9 @@ namespace FitnessDll.Controller
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream fs = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, UserPole);
+                formatter.Serialize(fs, UsersPole);
             }
         }
-        /// <summary>
-        /// Загрузить юзера.
-        /// </summary>
-        /// <returns>Юзер приложения.</returns>
-        //public UserController()
-        //{
-        //    BinaryFormatter formatter = new BinaryFormatter();
-        //    using(FileStream fs = new FileStream("users.dat", FileMode.Open))
-        //    {
-
-        //        if (formatter.Deserialize(fs) is User user)
-        //        {
-        //            UserPole = user;
-        //        }
-        //    }
-        //}
+   
     }
 }

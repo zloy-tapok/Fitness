@@ -4,8 +4,9 @@ using System.Linq;
 
 namespace Fitness.BL.Model
 {   /// <summary>
-/// Прием пищи.
-/// </summary>
+    /// Прием пищи.
+    /// </summary>
+    [Serializable]
     public class Eating
     {
         public DateTime Moment { get; }

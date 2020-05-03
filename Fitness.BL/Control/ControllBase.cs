@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Fitness.BL.Control
 {
-   public abstract class ControllBase
+    
+    public abstract class ControllBase
     {
 
         protected void Save(string fileName, object item)
